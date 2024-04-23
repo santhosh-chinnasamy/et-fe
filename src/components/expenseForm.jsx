@@ -24,14 +24,15 @@ const ExpenseForm = ({ addExpense }) => {
 
     addExpense(title, amount);
     setTitle("");
-    setAmount(0);
+    setAmount(null);
   };
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
     setErrors({ ...errors, title: "" });
   };
   const handleAmountChange = (e) => {
-    setAmount(parseInt(e.target.value));
+    const value = e.target.value || null
+    setAmount(value);
     setErrors({ ...errors, amount: "" });
   };
 
