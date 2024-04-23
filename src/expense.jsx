@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ExpenseItem from "./components/expenseItem";
+import ExpenseForm from './components/expenseForm'
+
 export default function Expense() {
   const [expenses, setExpenses] = useState([
     {
@@ -39,6 +41,7 @@ export default function Expense() {
       </div>
       {/* list expenses */}
       {/* <ExpenseItem title={"test"} amount={10}/> */}
+      <ExpenseForm />
       {expenses.map((expense) => (
         <ExpenseItem
           key={expense.id}
