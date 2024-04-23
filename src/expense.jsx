@@ -14,6 +14,11 @@ export default function Expense() {
     },
   ]);
 
+  const deleteExpense = (id) => {
+    // console.log(expenses.filter((expense) => expense.id != id));
+    setExpenses(expenses.filter((expense) => expense.id != id))
+  };
+
   return (
     <>
       <div>
@@ -34,9 +39,14 @@ export default function Expense() {
       </div>
       {/* list expenses */}
       {/* <ExpenseItem title={"test"} amount={10}/> */}
-      {
-      expenses.map((expense) => (
-        <ExpenseItem title={expense.title} amount={expense.amount} />
+      {expenses.map((expense) => (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          amount={expense.amount}
+          id={expense.id}
+          deleteExpense={deleteExpense}
+        />
       ))}
     </>
   );
