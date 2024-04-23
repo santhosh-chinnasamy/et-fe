@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 
-const ExpenseForm = () => {
-  const [title, setTitle] = useState("food")
-  const [amount, setAmount] = useState(-50)
+const ExpenseForm = ({addExpense}) => {
+  const [title, setTitle] = useState(null)
+  const [amount, setAmount] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log({title, amount})
-    console.log("submitted")
+    addExpense(title, amount)
+    setAmount(0)
+    setTitle("")
   };
 
   const handleTitleChange = (event) => {
-    console.log(event.target.value)
     setTitle(event.target.value)
   }
 
