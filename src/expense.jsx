@@ -1,5 +1,19 @@
+import React, { useState } from "react";
+import ExpenseItem from "./components/expenseItem";
 export default function Expense() {
-  
+  const [expenses, setExpenses] = useState([
+    {
+      id: 1,
+      title: "test",
+      amount: 10,
+    },
+    {
+      id: 2,
+      title: "test 2",
+      amount: 10,
+    },
+  ]);
+
   return (
     <>
       <div>
@@ -16,9 +30,14 @@ export default function Expense() {
             <span>0</span>
           </div>
         </div>
-       {/* form */}
+        {/* form */}
       </div>
       {/* list expenses */}
+      {/* <ExpenseItem title={"test"} amount={10}/> */}
+      {
+      expenses.map((expense) => (
+        <ExpenseItem title={expense.title} amount={expense.amount} />
+      ))}
     </>
   );
 }
