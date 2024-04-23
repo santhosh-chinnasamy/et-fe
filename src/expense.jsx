@@ -3,21 +3,21 @@ import ExpenseItem from "./components/expenseItem";
 import ExpenseForm from "./components/expenseForm";
 
 export default function Expense() {
-  const [expenses, setExpenses] = useState([
-    {
-      id: 1,
-      title: "test",
-      amount: 10,
-    },
-    {
-      id: 2,
-      title: "test 2",
-      amount: 10,
-    },
-  ]);
+  const [expenses, setExpenses] = useState([]);
 
   const [income, setIncome] = useState(0);
   const [outgoing, setOutgoing] = useState(0);
+
+  const getExpenses = () => {
+    fetch("http://localhost:7000/expense/all/66261b2d203cc6b2f4390dad")
+      .then((res) => res.json())
+      .then((data) => setExpenses(data))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getExpenses();
+  }, []);
 
   useEffect(() => {
     let income = 0;
@@ -36,13 +36,36 @@ export default function Expense() {
 
   const deleteExpense = (id) => {
     // console.log(expenses.filter((expense) => expense.id != id));
-    setExpenses(expenses.filter((expense) => expense.id != id));
+    // setExpenses(expenses.filter((expense) => expense.id != id));
+
+    // http://localhost:7000/expense/delete/:expenseID
+    fetch(`http://localhost:7000/expense/delete/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => getExpenses())
+      .catch((err) => console.log(err));
   };
 
   const addExpense = (title, amount) => {
     // append new expense into expenses state using setExpenses
     // array spread operator
-    setExpenses([...expenses, { id: Math.random(), title, amount }]);
+    // setExpenses([...expenses, { id: Math.random(), title, amount }]);
+    fetch("http://localhost:7000/expense/new/66261b2d203cc6b2f4390dad", {
+      method: "POST", // DELETE
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount,
+        category: title,
+        userId: "66261b2d203cc6b2f4390dad",
+        date: new Date(),
+      }),
+    })
+      .then(() => {
+        getExpenses();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -68,10 +91,10 @@ export default function Expense() {
       <ExpenseForm addExpense={addExpense} />
       {expenses.map((expense) => (
         <ExpenseItem
-          key={expense.id}
-          title={expense.title}
+          key={expense._id}
+          title={expense.category}
           amount={expense.amount}
-          id={expense.id}
+          id={expense._id}
           deleteExpense={deleteExpense}
         />
       ))}
