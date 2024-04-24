@@ -30,6 +30,7 @@ export default function Login() {
       }else{
           console.log(loginData);
           setCookie('token', loginData.accessToken, { maxAge: 60 * 60 * 60 })
+          setCookie('userId', loginData.userDetails.userID, { maxAge: 60 * 60 * 60 })
           navigate("/expense")
       }
     } catch (error) {

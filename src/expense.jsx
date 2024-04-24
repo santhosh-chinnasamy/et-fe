@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ExpenseItem from "./components/expenseItem";
 import ExpenseForm from "./components/expenseForm";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 export default function Expense() {
@@ -10,10 +10,11 @@ export default function Expense() {
   const [income, setIncome] = useState(0);
   const [outgoing, setOutgoing] = useState(0);
   const [cookies] = useCookies(['token'])
-  const navigate = useNavigate()
+
 
   const getExpenses = () => {
-    fetch("http://localhost:7000/expense/all/66261b2d203cc6b2f4390dad",{
+    // store and fetch user id from cookie and replace the hardcoded value 66261b2d203cc6b2f4390dad
+    fetch(`http://localhost:7000/expense/all/${cookies.userId}`,{
       headers: {
         'Authorization': `Bearer ${cookies.token}`
       }
@@ -25,10 +26,6 @@ export default function Expense() {
 
   useEffect(() => {
     getExpenses();
-   if(!cookies.token) {
-    navigate("/login")
-    return
-   }
   }, []);
 
   useEffect(() => {
@@ -53,6 +50,9 @@ export default function Expense() {
     // http://localhost:7000/expense/delete/:expenseID
     fetch(`http://localhost:7000/expense/delete/${id}`, {
       method: "DELETE",
+      headers: {
+        'Authorization': `Bearer ${cookies.token}`
+      }
     })
       .then(() => getExpenses())
       .catch((err) => console.log(err));
@@ -62,7 +62,7 @@ export default function Expense() {
     // append new expense into expenses state using setExpenses
     // array spread operator
     // setExpenses([...expenses, { id: Math.random(), title, amount }]);
-    fetch("http://localhost:7000/expense/new/66261b2d203cc6b2f4390dad", {
+    fetch(`http://localhost:7000/expense/new/${cookies.userId}`, {
       method: "POST", // DELETE
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,6 @@ export default function Expense() {
       body: JSON.stringify({
         amount,
         category: title,
-        userId: "66261b2d203cc6b2f4390dad",
         date: new Date(),
       }),
     })
