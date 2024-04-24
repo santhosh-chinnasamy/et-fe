@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import ExpenseItem from "./components/expenseItem";
 import ExpenseForm from "./components/expenseForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 export default function Expense() {
   const [expenses, setExpenses] = useState([]);
 
   const [income, setIncome] = useState(0);
   const [outgoing, setOutgoing] = useState(0);
+  const [cookies] = useCookies(['token'])
+  const navigate = useNavigate()
 
   const getExpenses = () => {
-    fetch("http://localhost:7000/expense/all/66261b2d203cc6b2f4390dad")
+    fetch("http://localhost:7000/expense/all/66261b2d203cc6b2f4390dad",{
+      headers: {
+        'Authorization': `Bearer ${cookies.token}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setExpenses(data))
       .catch((err) => console.log(err));
@@ -18,6 +25,10 @@ export default function Expense() {
 
   useEffect(() => {
     getExpenses();
+   if(!cookies.token) {
+    navigate("/login")
+    return
+   }
   }, []);
 
   useEffect(() => {

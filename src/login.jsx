@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 
@@ -6,6 +7,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+  const [cookies, setCookie] = useCookies([])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,7 +29,8 @@ export default function Login() {
         alert(loginData.message)
       }else{
           console.log(loginData);
-          navigate("/")
+          setCookie('token', loginData.accessToken, { maxAge: 60 * 60 * 60 })
+          navigate("/expense")
       }
     } catch (error) {
       console.log("API error");
