@@ -4,12 +4,28 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { Album } from "./album";
 import Expense from "./expense";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+// import Login from "./login";
+
+const routes = createBrowserRouter([
+  {
+    path: "/expense",
+    Component: Expense,
+  },
+  {
+    path: "/",
+    Component: Album,
+  },
+  // {
+  //   path:"/login",
+  //   Component: Login
+  // }
+]);
 
 function App() {
   return (
     <>
-      {/* <Album /> */}
-      <Expense/>
+      <RouterProvider router={routes} />
     </>
   );
 }
