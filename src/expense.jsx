@@ -67,6 +67,7 @@ export default function Expense() {
       method: "POST", // DELETE
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${cookies.token}`
       },
       body: JSON.stringify({
         amount,
