@@ -5,7 +5,7 @@ import "./App.css";
 import { Album } from "./album";
 import Expense from "./expense";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-// import Login from "./login";
+import Login from "./login";
 
 const routes = createBrowserRouter([
   {
@@ -16,10 +16,10 @@ const routes = createBrowserRouter([
     path: "/",
     Component: Album,
   },
-  // {
-  //   path:"/login",
-  //   Component: Login
-  // }
+  {
+    path:"/login",
+    Component: Login
+  }
 ]);
 
 function App() {

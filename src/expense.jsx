@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ExpenseItem from "./components/expenseItem";
 import ExpenseForm from "./components/expenseForm";
+import { Link } from "react-router-dom";
 
 export default function Expense() {
   const [expenses, setExpenses] = useState([]);
@@ -71,6 +72,7 @@ export default function Expense() {
   return (
     <>
       <div>
+      <Link to="/" >Album</Link>
         <div>Expense Tracker</div>
         <div className="balance">Balance: {income + outgoing}</div>
         <div className="income-expense-container">
