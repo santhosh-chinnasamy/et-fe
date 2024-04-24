@@ -3,6 +3,7 @@ import "./album.css"
 import Image from './components/image'
 import Title from "./components/title";
 import { Link } from "react-router-dom";
+import Logout from "./components/logout";
 
 export function Album() {
   //   const data = [
@@ -33,6 +34,7 @@ export function Album() {
   return (
     <div>
       <Link to="/expense" >Expense</Link>
+      <Logout />
       {data.map((item) => {
         return (
           <>

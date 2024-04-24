@@ -3,6 +3,7 @@ import ExpenseItem from "./components/expenseItem";
 import ExpenseForm from "./components/expenseForm";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import Logout from "./components/logout";
 
 export default function Expense() {
   const [expenses, setExpenses] = useState([]);
@@ -83,6 +84,7 @@ export default function Expense() {
     <>
       <div>
       <Link to="/" >Album</Link>
+      <Logout />
         <div>Expense Tracker</div>
         <div className="balance">Balance: {income + outgoing}</div>
         <div className="income-expense-container">
