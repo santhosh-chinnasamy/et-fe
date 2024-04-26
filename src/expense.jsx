@@ -15,7 +15,7 @@ export default function Expense() {
 
   const getExpenses = () => {
     // store and fetch user id from cookie and replace the hardcoded value 66261b2d203cc6b2f4390dad
-    fetch(`http://localhost:7000/expense/all/${cookies.userId}`,{
+    fetch(`${import.meta.env.VITE_API_URL}/expense/all/${cookies.userId}`,{
       headers: {
         'Authorization': `Bearer ${cookies.token}`
       }
@@ -49,7 +49,7 @@ export default function Expense() {
     // setExpenses(expenses.filter((expense) => expense.id != id));
 
     // http://localhost:7000/expense/delete/:expenseID
-    fetch(`http://localhost:7000/expense/delete/${id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/expense/delete/${id}`, {
       method: "DELETE",
       headers: {
         'Authorization': `Bearer ${cookies.token}`
@@ -63,7 +63,7 @@ export default function Expense() {
     // append new expense into expenses state using setExpenses
     // array spread operator
     // setExpenses([...expenses, { id: Math.random(), title, amount }]);
-    fetch(`http://localhost:7000/expense/new/${cookies.userId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/expense/new/${cookies.userId}`, {
       method: "POST", // DELETE
       headers: {
         "Content-Type": "application/json",

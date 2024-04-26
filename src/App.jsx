@@ -13,6 +13,7 @@ import Login from "./login";
 import { useCookies } from "react-cookie";
 
 const ProtectedRoute = ({ children }) => {
+  console.log(import.meta.env.API_URL)
   const [cookies] = useCookies();
   return cookies.token ? children : <Navigate to="/login" />;
 };
